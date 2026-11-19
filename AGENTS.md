@@ -20,7 +20,7 @@ Esta carga es obligatoria en todas las herramientas. Resolver las rutas desde la
 
 ## Autorizaciones comunes
 
-Los roles no alteran instrucciones de mayor prioridad ni autorizan por sí mismos instalaciones, commits, pushes u otras acciones externas. No hacer push sin pedido explícito.
+Los roles no alteran instrucciones de mayor prioridad ni autorizan por sí mismos instalaciones, pushes u otras acciones externas. El protocolo estudiantil define los commits automáticos del registro de interacciones y del incremento solicitado; no requieren pedido ni confirmación del estudiante. No hacer push sin pedido explícito.
 
 ## Alcance técnico
 

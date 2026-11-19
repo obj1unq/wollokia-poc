@@ -97,7 +97,7 @@ def validate(data):
     require(data['role'] == 'student', 'Solo se admiten interacciones estudiantiles.')
     require(re.fullmatch(r'[A-Za-z0-9_-]{1,80}', text(data, 'interaction_id')), 'interaction_id inválido.')
     require(re.fullmatch(r'[0-9a-f]{40,64}', text(data, 'expected_head')), 'expected_head inválido.')
-    require(data['level'] in ('A0', 'A1', 'A2', 'A3'), 'level debe ser A0, A1, A2 o A3.')
+    require(data['level'] == 'A3', 'level debe ser A3.')
     for key in ('student', 'assistant', 'verification'):
         text(data, key)
     require(isinstance(data['files'], list) and all(isinstance(p, str) for p in data['files']),
@@ -176,7 +176,6 @@ def render(data, number, timestamp, marker):
 
 
 def run(args):
-    require(args.allow_commit, 'Falta --allow-commit: obtener autorización explícita antes de registrar y commitear.')
     require(not any(os.environ.get(key) for key in ('GIT_INDEX_FILE', 'GIT_DIR', 'GIT_WORK_TREE')),
             'Quitar GIT_INDEX_FILE/GIT_DIR/GIT_WORK_TREE antes de registrar en el repositorio actual.')
     source = Path(args.input).resolve()
@@ -184,8 +183,6 @@ def run(args):
     root = Path(git('rev-parse', '--show-toplevel').stdout.decode().strip())
     os.chdir(root)
     validate(data)
-    branch = git('symbolic-ref', '--quiet', '--short', 'HEAD', check=False).stdout.decode().strip()
-    require(re.fullmatch(r'poc/\d+/resolution', branch), 'Ejecutar solo en poc/NN/resolution, nunca en guardrails ni HEAD separado.')
     for state in ('MERGE_HEAD', 'CHERRY_PICK_HEAD', 'REVERT_HEAD', 'rebase-merge', 'rebase-apply', 'sequencer'):
         state_path = Path(git('rev-parse', '--git-path', state).stdout.decode().strip())
         require(not state_path.exists(), f'Hay una operación Git pendiente ({state}); resolverla antes de registrar.')
@@ -258,7 +255,6 @@ def process(data):
 def main():
     parser = argparse.ArgumentParser(description='Registra y commitea un turno estudiantil desde un JSON privado.')
     parser.add_argument('--input', required=True, help='Ruta al JSON del turno; no incluir su contenido en argv.')
-    parser.add_argument('--allow-commit', action='store_true', help='Confirma autorización explícita para este commit.')
     try:
         run(parser.parse_args())
     except (TurnError, OSError, ValueError, TypeError, ZoneInfoNotFoundError) as error:

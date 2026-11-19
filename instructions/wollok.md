@@ -58,7 +58,7 @@ test "suma de literales" {
 }
 ```
 
-No copiarlo al proyecto como test del estudiante ni mostrar ejemplos por encima del nivel de ayuda autorizado. Antes de transcribir un test del ejercicio, exigir escenario, datos, resultado esperado y confirmación según `asistencia-estudiante.md`.
+No copiarlo al proyecto como test del estudiante ni mostrar ejemplos que excedan lo permitido por `asistencia-estudiante.md`. Antes de transcribir un test del ejercicio, exigir escenario, datos, resultado esperado y confirmación según `asistencia-estudiante.md`.
 
 Fuente: [Tests](https://www.wollok.org/documentation/tests/).
 

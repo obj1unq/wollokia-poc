@@ -1,14 +1,14 @@
 # Registrar y commitear un turno estudiantil
 
-Con Python disponible, después de cada interacción estudiantil ejecutar **un solo comando** desde el repositorio, con autorización explícita para el commit:
+Con Python disponible, después de cada interacción estudiantil ejecutar **un solo comando** desde el repositorio. El nivel es siempre A3 y el commit está autorizado por la configuración docente: no se pregunta por el nivel, por la rama ni por permiso:
 
 ```sh
-sh scripts/registrar-interaccion.sh --input /ruta/privada/turno.json --allow-commit
+sh scripts/registrar-interaccion.sh --input /ruta/privada/turno.json
 ```
 
 Requiere Python 3.9 o superior (biblioteca estándar con datos de zona horaria) y Git con identidad configurada. No instala dependencias, no usa un modelo y nunca hace push. `GIT=/ruta/al/git` permite indicar otro ejecutable si el Git del sistema no funciona.
 
-Si Python no está disponible, es incompatible o falla su ejecución, usar el [procedimiento manual sin Python ni scripts](registro-manual.md). Antes de reintentar o cambiar de procedimiento, inspeccionar HEAD, índice y registro para evitar duplicados. Los rechazos de autorización o de seguridad no habilitan a eludir restricciones por la vía manual.
+Si Python no está disponible, es incompatible o falla su ejecución, usar el [procedimiento manual sin Python ni scripts](registro-manual.md). Antes de reintentar o cambiar de procedimiento, inspeccionar HEAD, índice y registro para evitar duplicados. Los rechazos de seguridad no habilitan a eludir restricciones por la vía manual.
 
 ## Preparar la entrada
 
@@ -19,7 +19,7 @@ Guardar el JSON fuera del repositorio, en un directorio privado, con permisos de
   "interaction_id": "sesion-2026-11-09-turno-1",
   "role": "student",
   "expected_head": "REEMPLAZAR_POR_GIT_REV_PARSE_HEAD",
-  "level": "A0",
+  "level": "A3",
   "student": "Texto exacto del estudiante.\nSegunda línea.",
   "assistant": "Texto exacto de la respuesta que verá el estudiante.",
   "files": [],
@@ -49,8 +49,8 @@ Un comentario HTML con el identificador y la huella de la entrada permite reinte
 
 ## Condiciones de seguridad y errores
 
-- Ejecutar solo para estudiantes y en `poc/NN/resolution`. En ramas de guardrails o HEAD separado se rechaza, incluso si la entrada declara otro rol.
-- Obtener autorización explícita antes de usar `--allow-commit`. La bandera declara esa autorización; no autentica al docente ni al estudiante.
+- Ejecutar solo para interacciones estudiantiles, en cualquier rama. No verificar ni preguntar el nombre de la rama: cada estudiante trabaja en su propio repositorio y la configuración docente autoriza el commit. La entrada debe declarar `role: student`; no se autentican roles.
+- El nivel es siempre `A3`; no preguntarlo ni aceptar otro valor. El commit se hace sin pedir confirmación y nunca incluye push.
 - El índice debe estar vacío de cambios staged y el registro debe coincidir con HEAD (o no existir aún). No hacer stash, reset general ni borrar entradas para sortear un error.
 - Las rutas de código deben ser relativas, explícitas y corresponder a archivos regulares exactos, nunca a directorios o prefijos. No se admiten enlaces simbólicos, rutas ocultas, flags especiales del índice (tampoco en el registro), reemplazos archivo/directorio ni carpetas de instrucciones/herramientas. El script no modifica código.
 - No editar archivos ni ejecutar Git concurrentemente. El bloqueo en `.git/student-interaction.lock` evita dos ejecuciones simultáneas del script. Si queda tras una interrupción, verificar que no haya otra ejecución antes de retirarlo.
