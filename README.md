@@ -7,14 +7,15 @@ Este experimento busca mejorar la materia Objetos 1 a partir de los avances de l
 Antes de empezar, instalá:
 
 1. **Visual Studio Code:** descargalo e instalalo desde [code.visualstudio.com](https://code.visualstudio.com/).
-2. **Wollok:** seguí la instalación en [wollok.org](https://wollok.org/)
-3. **OpenCode:** instalalo desde una terminal con:
+2. **Wollok:** seguí las instrucciones de instalación en [wollok.org](https://wollok.org/).
+3. **OpenCode:** descargalo desde el [sitio oficial](https://opencode.ai/desktop) o instalalo desde una terminal con:
 
    ```bash
-   npm install -g @opencode/cli
+   npm install -g opencode-ai
    ```
 
-   Luego abrilo en una terminal del VSCode ejecutando
+   Luego abrilo en una terminal de VS Code ejecutando:
+
    ```bash
    opencode
    ```
@@ -23,14 +24,14 @@ Antes de empezar, instalá:
 
 Leé `enunciado.md` y resolvé el ejercicio en los archivos `solucion.wlk` y `testSolucion.wtest` usando OpenCode como asistente.
 
-La idea es no escribir el código manualmente: pedile a la IA lo que querés. Ella va a hacerte preguntas sobre algunas decisiones conceptuales y escribir el código por vos. Podés leer cómo cambian los archivos para orientarte, pero preferentemente no 
+La idea es no escribir el código manualmente: pedile a la IA lo que querés. Ella va a hacerte preguntas sobre algunas decisiones conceptuales y escribir el código por vos. Podés revisar cómo cambian los archivos para orientarte y comprender mejor las decisiones.
 
 ## Entregable
 
-Al terminar, el repositorio de GitHub debe incluir todo el trabajo realizado, incluidos los cambios y commits que vaya generando la herramienta. **Al finalizar, es importante pushear el repositorio a GitHub a mano.**
+Al terminar, el repositorio de GitHub debe incluir todo el trabajo realizado, incluidos los cambios y los commits que vaya generando la herramienta. **Al finalizar, es importante subir los cambios con `git push`.**
 
 Luego, completá la **encuesta de la actividad: https://forms.gle/1RfqtBDEXWsQVk5h8**
 
 ----
 
-#### Muchas gracias por ayudarnos a mejorar la universidad! 🫶
+Muchas gracias por ayudarnos a mejorar nuestras clases! 🫶
